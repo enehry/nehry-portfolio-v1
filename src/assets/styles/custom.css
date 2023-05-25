@@ -1,0 +1,37 @@
+.custom-shadow {
+  @apply hover:shadow-[10px_10px_0px_0px_rgb(0,0,0)] transition-all duration-100 shadow-[2px_2px_0px_0px_rgb(0,0,0)] border-black border;
+}
+
+.custom-shadow-sm {
+  @apply hover:shadow-[5px_5px_0px_0px_rgb(0,0,0)] transition-all duration-100 shadow-[2px_2px_0px_0px_rgb(0,0,0)] border-black border;
+}
+
+.custom-shadow-fix {
+  @apply shadow-[10px_10px_0px_0px_rgb(0,0,0)] border-black border;
+}
+
+.custom-burst-shape {
+      background: red;
+      width: 80px;
+      height: 80px;
+      position: relative;
+      text-align: center;
+}
+
+.custom-burst-shape:before,
+.custom-burst-shape:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 80px;
+      width: 80px;
+      background: red;
+    }
+    .custom-burst-shape:before {
+      transform: rotate(30deg);
+    }
+    .custom-burst-shape:after {
+      transform: rotate(60deg);
+    }
+  

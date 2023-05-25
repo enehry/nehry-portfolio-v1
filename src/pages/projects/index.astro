@@ -1,0 +1,168 @@
+---
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { Document } from "@contentful/rich-text-types";
+import type { Asset } from "contentful";
+import Layout from "../../layouts/Layout.astro";
+import { contentfulClient } from "../../lib/contentful";
+import { SEO } from "astro-seo";
+
+export interface Project {
+  title: string;
+  description: Document;
+  image: Asset;
+  link: string;
+  tags: string[];
+  github?: string;
+  order: number;
+}
+
+const entries = await contentfulClient.getEntries<Project>({
+  content_type: "project",
+});
+
+const projects = entries.items
+  .map((item) => {
+    const { title, description, image, link, tags, github, order } =
+      item.fields;
+
+    return {
+      title,
+      description: documentToHtmlString(description),
+      image: image,
+      link,
+      tags,
+      github,
+      order,
+    };
+  })
+  .reverse();
+
+// add seo to every projects
+projects.forEach((project) => {});
+---
+
+<head>
+  <meta charset="utf-8" />
+  <SEO
+    title="Projects | Nehry Dedoro"
+    description="A collection of projects I have built."
+  />
+</head>
+<Layout title="Projects | Nehry Dedoro" currentPage="Projects">
+  <div
+    class="px-10 lg:px-0 lg:py-20 py-5 mx-auto max-w-5xl text-secondary dark:text-stone-400 mb-20"
+  >
+    <div class="relative flex items-center mb-2">
+      <svg
+        class="w-16 h-16 fill-quaternary dark:fill-stone-300"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 128 128"
+        stroke-width="2.5"
+        stroke="currentColor"
+        ><polygon
+          points="19.44,50.16 8.22,30.72 30.72,30.72 30.72,8.13 50.16,19.44 61.44,0 72.72,19.44 92.16,8.13 92.16,30.72 114.75,30.72 103.44,50.16 122.88,61.44 103.44,72.72 114.75,92.16 92.16,92.16 92.16,114.66 72.72,103.44 61.44,122.88 50.16,103.44 30.72,114.66 30.72,92.16 8.22,92.16 19.44,72.72 0,61.44 19.44,50.16"
+          style="fill-rule:evenodd;clip-rule:evenodd"></polygon>
+      </svg>
+      <h1 class="text-2xl font-bold dark:text-stone-300 z-10 ml-2">
+        What I have built
+      </h1>
+      <div class="ml-16 w-48 border-b dark:border-stone-500 border-secondary">
+      </div>
+    </div>
+    {
+      projects.map((project, index) => (
+        <div>
+          <div
+            class={`flex flex-col-reverse border dark:border-black border-secondary ${
+              index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse "
+            }`}
+          >
+            <div
+              class={`space-y-4 md:max-w-sm w-full bg-primary dark:bg-stone-700 p-10 border-t md:border-t-0 border-secondary
+                ${
+                  index % 2 === 0
+                    ? "md:border-r border-r-0 "
+                    : "md:border-l border-rl-0"
+                }`}
+            >
+              <div class="text-2xl font-bold">{project.title}</div>
+              <div set:html={project.description} />
+              <div class="flex gap-2 items-center">
+                <a
+                  href={project.link}
+                  target="blank"
+                  aria-label={`Visit ${project.title} website`}
+                  class="flex items-center gap-1 dark:bg-stone-500 dark:text-stone-900 text-secondary py-1 bg-quinary border w-min px-2 rounded-full border-secondary custom-shadow-sm"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="w-5 h-5"
+                    >
+                      <path d="M15.75 8.25a.75.75 0 01.75.75c0 1.12-.492 2.126-1.27 2.812a.75.75 0 11-.992-1.124A2.243 2.243 0 0015 9a.75.75 0 01.75-.75z" />
+                      <path
+                        fill-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM4.575 15.6a8.25 8.25 0 009.348 4.425 1.966 1.966 0 00-1.84-1.275.983.983 0 01-.97-.822l-.073-.437c-.094-.565.25-1.11.8-1.267l.99-.282c.427-.123.783-.418.982-.816l.036-.073a1.453 1.453 0 012.328-.377L16.5 15h.628a2.25 2.25 0 011.983 1.186 8.25 8.25 0 00-6.345-12.4c.044.262.18.503.389.676l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.575 15.6z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <p class="w-24 text-sm">Project Demo</p>
+                </a>
+                {project.github ? (
+                  <a
+                    href={project.github}
+                    aria-label={project.title}
+                    class="p-1 bg-quinary custom-shadow-sm rounded-full dark:bg-stone-500 dark:text-stone-300 text-secondary border border-secondary"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-5 h-5 dark:fill-stone-900"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                  </a>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div class="flex gap-2 flex-wrap mt-2">
+                {project.tags.map((tag) => (
+                  <div class="bg-quaternary dark:bg-stone-800 dark:text-stone-400 text-black custom-shadow-sm border dark:border-stone-500 border-secondary rounded-full px-4 py-2">
+                    {tag}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div class="w-full flex items-center justify-center p-4 pr-8 scale-100 focus:scale-125 hover:scale-125 transition-all duration-200">
+              <div class="text-lg custom-shadow-fix bg-white dark:text-stone-400 font-slab">
+                <div class="px-4 flex items-center gap-4 h-10 border-b border-black bg-quinary dark:bg-stone-600">
+                  <div class="flex items-center gap-2 ">
+                    <div class="h-3 w-3 rounded-full bg-red-500" />
+                    <div class="h-3 w-3 rounded-full bg-yellow-500" />
+                    <div class="h-3 w-3 rounded-full bg-green-500" />
+                  </div>
+                  <div class="flex-grow h-6 bg-[#d9dbd9]" />
+                  <div />
+                  <div class="w-5 h-5 rounded-full bg-primary" />
+                </div>
+
+                <div class="">
+                  <img
+                    src={project.image.fields?.file?.url}
+                    alt={project.image.fields?.title}
+                    loading="lazy"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Layout>

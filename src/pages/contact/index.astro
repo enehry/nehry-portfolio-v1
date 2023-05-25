@@ -1,0 +1,52 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import profilePic from "../../assets/images/nehry.png";
+import { SEO } from "astro-seo";
+---
+
+<head>
+  <meta charset="utf-8" />
+  <SEO
+    title="Contact | Nehry Dedoro"
+    description="email: enehry@gmail.com - If you have any questions or just want to say hi, feel free to contact me. I'll try to get back to you as soon as possible."
+    image={profilePic}
+  />
+</head>
+<Layout title="Contact | Nehry Dedoro" currentPage="Contact">
+  <div
+    class="md:px-10 px-2 mx-auto flex max-w-xl items-center justify-center h-screen"
+  >
+    <div
+      class="text-lg text-black custom-shadow bg-white dark:bg-stone-700 dark:text-stone-400"
+    >
+      <div
+        class="flex items-center pl-4 gap-2 h-10 border-b border-black dark:bg-stone-800 bg-black"
+      >
+        <div class="h-3 w-3 rounded-full bg-red-500"></div>
+        <div class="h-3 w-3 rounded-full bg-yellow-500"></div>
+        <div class="h-3 w-3 rounded-full bg-green-500"></div>
+      </div>
+      <div class="flex flex-col items-center p-10">
+        <div>
+          <h1 class="font-head text-6xl text-black dark:text-stone-300">
+            Get in touch
+          </h1>
+        </div>
+        <div class="text-center">
+          <p class="my-4 text-center">
+            If you have any questions or just want to say hi, feel free to
+            contact me. I'll try to get back to you as soon as possible.
+          </p>
+          <div></div>
+          <div class="flex justify-center">
+            <a
+              class="px-4 py-1 dark:bg-stone-600 dark:text-stone-300 bg-primary font-bold text-2xl custom-shadow text-white rounded-md mt-4"
+              href="mailto:enehry@gmail.com"
+              aria-label="contact me">Say Hi!</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

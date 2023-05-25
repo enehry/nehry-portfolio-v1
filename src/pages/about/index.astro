@@ -1,0 +1,125 @@
+---
+import AstroDark from "../../assets/icons/astrodark.svg";
+import AstroLight from "../../assets/icons/astrolight.svg";
+import profilePic from "../../assets/images/nehry.png";
+import Arrow from "../../components/Arrow.astro";
+import Layout from "../../layouts/Layout.astro";
+import { SEO } from "astro-seo";
+
+const skills = [
+  "Laravel",
+  "VueJS",
+  "Tailwind",
+  "React",
+  "Vite",
+  "Flutter",
+  "Dart",
+  "Unity",
+  "C#",
+];
+---
+
+<head>
+  <meta charset="utf-8" />
+  <SEO
+    title="About | Nehry Dedoro"
+    description="Greetings, my name is John Nehry Dedoro, and I am a current student at the esteemed University of Rizal System. With over two years of experience as a freelance developer..."
+  />
+</head>
+<Layout title="About | Nehry Dedoro" currentPage="About Me">
+  <div
+    class="px-2 pt-2 lg:px-0 lg:py-20 mx-auto max-w-3xl text-black dark:text-stone-400 mb-20"
+  >
+    <div
+      class="grid lg:grid-cols-3 grid-cols-1 border border-black custom-shadow"
+    >
+      <div class="relative flex items-center justify-center my-4">
+        <div class="hidden lg:block absolute top-5 mt-10 left-20">
+          <Arrow />
+        </div>
+        <img
+          src={profilePic}
+          alt="Nehry Dedoro"
+          class="rounded-full bg-primary dark:bg-stone-700 w-52 h-52 border border-secondary"
+        />
+      </div>
+      <div class="col-span-2 bg-primary dark:bg-stone-700 p-10">
+        <div class="flex items-center mb-8">
+          <h1 class="text-5xl font-head dark:text-stone-300">About</h1>
+          <div
+            class="ml-16 w-48 border-b dark:border-stone-500 border-secondary"
+          >
+          </div>
+        </div>
+        <p class="mt-2">
+          Greetings, my name is John Nehry Dedoro, and I am a current student at
+          the esteemed University of Rizal System. With over two years of
+          experience as a freelance developer, I have gained valuable expertise
+          in guiding and assisting my clients, who are primarily students, in
+          building their projects from the ground up. My responsibilities
+          include designing and implementing the database architecture,
+          gathering the necessary data, creating diagrams of the database, and
+          prototyping user interfaces using Figma. Additionally, I specialize in
+          using Laravel for backend development and React, Vue, and Flutter for
+          frontend development. Moreover, I have also ventured into building
+          simple 2D games using Unity and C# and have acquired working knowledge
+          of various other JS frameworks such as Express, Next, Nuxt, and
+          Svelte.
+        </p>
+        <p class="mt-2">
+          In addition to my extensive experience as a freelance developer, I
+          have also had the privilege of sharing my knowledge and expertise as a
+          speaker at various events hosted by the University of Rizal System.
+          Specifically, I have delivered presentations on developing mobile
+          applications using the Flutter framework. As a passionate developer
+          and dedicated educator, I am committed to sharing my skills and
+          insights with others and contributing to the growth and success of the
+          development community.
+        </p>
+        <div class="mt-2">
+          <h1 class="mb-2 font-bold">
+            My skill set includes proficiency in a variety of recent and
+            cutting-edge technologies that I have worked with:
+          </h1>
+          <div class="flex flex-wrap pt-2">
+            {
+              skills.map((skill) => (
+                <div class="bg-quaternary dark:bg-stone-800 dark:text-stone-400 text-black custom-shadow-sm border dark:border-stone-500 border-secondary rounded-full px-4 py-2 mr-2 mb-2">
+                  <p class="">{skill}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 flex items-center">
+      <hr
+        class="h-0.5 rounded-full my-8 bg-black border-0 dark:bg-stone-700 w-full"
+      />
+      <div class="md:w-1/2 w-96 items-center justify-center flex">
+        <div class="font-bold text-black dark:text-stone-500">Built with</div>
+        <a
+          href="https://astro.build/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="dark mode icons"
+        >
+          <img
+            src={AstroLight}
+            alt="Astro Dark"
+            class="w-6 h-6 mx-2 dark:hidden block"
+          />
+          <img
+            src={AstroDark}
+            alt="Astro Dark"
+            class="w-6 h-6 mx-2 dark:block hidden"
+          />
+        </a>
+      </div>
+      <hr
+        class="h-0.5 rounded-full my-8 bg-black border-0 dark:bg-stone-700 w-full"
+      />
+    </div>
+  </div>
+</Layout>
